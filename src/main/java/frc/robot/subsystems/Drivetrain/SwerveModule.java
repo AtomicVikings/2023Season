@@ -41,7 +41,7 @@ public class SwerveModule {
         driveEncoder = new TalonFXSensorCollection(driveMotor);
         turnEncoder = new TalonFXSensorCollection(turnMotor);
 
-        turnPID = new PIDController(ModuleConstants.kPTurning,0,0);
+        turnPID = new PIDController(ModuleConstants.kPTurning, ModuleConstants.kITurning, ModuleConstants.kDTurning);
         turnPID.enableContinuousInput(-Math.PI, Math.PI);
         
         
@@ -49,22 +49,27 @@ public class SwerveModule {
     }
 
     public double getDrivePosition() {
+        // Returns the integrated position in Radians from -PI to PI
         return EncoderConvert.encoderToRad(driveEncoder.getIntegratedSensorAbsolutePosition());
     } 
 
     public double getTurningPosition() {
+        // Returns the integrated position in Radians from -PI to PI
         return MathUtil.angleModulus(EncoderConvert.encoderToRad(turnEncoder.getIntegratedSensorPosition()));
     }
 
     public double getDriveVelocity() {
+        // Returns the integrated velocity in Meters/Sec
         return EncoderConvert.rotToMeters(driveEncoder.getIntegratedSensorVelocity());
     }
 
     public double getTurningVelocity() {
+        // Returns the integrated velocity in Meters/Sec
        return EncoderConvert.rotToMeters(turnEncoder.getIntegratedSensorVelocity());
     }
 
     public double getAbsoluteEncoderRad() {
+        // Returns the absolute encoder (Thrifty Bot Absolute Encoder) in radians
         double angle = absoluteEncoder.getVoltage() / RobotController.getVoltage5V();
         angle *= 2.0 * Math.PI;
         angle -= absoluteEncoderOffsetRad;
