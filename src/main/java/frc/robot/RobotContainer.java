@@ -8,15 +8,20 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.MechJoystickCmd;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Drivetrain.SwerveSubsystem;
+import frc.robot.subsystems.Mechanisms.ElevatorArm;
+import frc.robot.Constants.MechConstants;
 
 
 public class RobotContainer {
 
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+  private final ElevatorArm mechSubsystem = new ElevatorArm();
 
   private final Joystick driverJoystick = new Joystick(OIConstants.kDriverControllerPort);
+  private final Joystick mechJoystick = new Joystick(OIConstants.kMechControllerPort);
 
   public RobotContainer() {
     swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
@@ -26,6 +31,11 @@ public class RobotContainer {
       () -> driverJoystick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> !driverJoystick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)
     ));
+
+    mechSubsystem.setDefaultCommand(new MechJoystickCmd(mechSubsystem,
+     () -> mechJoystick.getRawButton(MechConstants.kMechRaiseIdx),
+     () -> mechJoystick.getRawButton(MechConstants.kMechLowerIdx)));
+    
     configureButtonBindings();
   }
 

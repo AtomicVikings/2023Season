@@ -89,11 +89,24 @@ public final class Constants {
 
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kMechControllerPort = 1;
 
     public static final int kDriverYAxis = 1;
     public static final int kDriverXAxis = 0;
     public static final int kDriverRotAxis = 2;
     public static final int kDriverFieldOrientedButtonIdx = 1;
     public static final double kDeadband = 0.05;
+  }
+
+  public static final class MechConstants {
+    public static final int kMechPrimaryId = 15;
+    public static final int kMechSecondaryId = 16;
+
+
+    public static final int kMechRaiseIdx = 1;
+    public static final int kMechLowerIdx = 2;
+
+    public static final boolean kMechPrimaryInverted = false;
+    public static final boolean kMechSecondaryInverted = true;
   }
 }
