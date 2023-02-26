@@ -101,11 +101,14 @@ public final class Constants {
   public static final class MechConstants {
     public static final int kMechPrimaryId = 15;
     public static final int kMechSecondaryId = 16;
+    public static final int kMechIntakePrimaryId = 17;
+    public static final int kMechIntakeSecondaryId = 18;
 
 
     public static final int kMechRaiseIdx = 1;
     public static final int kMechLowerIdx = 2;
 
+    //this applies to both intake and elevator
     public static final boolean kMechPrimaryInverted = false;
     public static final boolean kMechSecondaryInverted = true;
   }
