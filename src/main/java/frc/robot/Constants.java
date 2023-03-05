@@ -76,15 +76,15 @@ public final class Constants {
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =  4.06;
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =   5.99;
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 3.15;
-    public static final double kBackRightDriveAbsoluteEncoderOffsetRad =  4.54;
+    public static final double kBackRightDriveAbsoluteEncoderOffsetRad =  1.40;
 
     // Limiters
-    public static final double kPhysicalMaxSpeedMetersPerSecond = 4.11;
+    public static final double kPhysicalMaxSpeedMetersPerSecond = 4.17;
     public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI * .2;
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * .9;
     public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 2;
   }
 
   public static final class OIConstants {
@@ -93,20 +93,26 @@ public final class Constants {
 
     public static final int kDriverYAxis = 1;
     public static final int kDriverXAxis = 0;
-    public static final int kDriverRotAxis = 2;
+    public static final int kDriverRotAxis = 4;
     public static final int kDriverFieldOrientedButtonIdx = 1;
     public static final double kDeadband = 0.05;
   }
 
   public static final class MechConstants {
-    public static final int kMechPrimaryId = 15;
-    public static final int kMechSecondaryId = 16;
+    public static final int kMechElevatorPrimaryId = 19;
+    public static final int kMechElevatorSecondaryId = 20;
     public static final int kMechIntakePrimaryId = 17;
     public static final int kMechIntakeSecondaryId = 18;
+    public static final int kMechAnglePrimaryId = 15;
+    public static final int kMechAngleSecondaryId = 16;
 
 
-    public static final int kMechRaiseIdx = 1;
-    public static final int kMechLowerIdx = 2;
+    public static final int kMechExtenderIdx = 1; //Joystick axis
+    public static final int kMechAngleIdx = 5;
+
+    public static final int kMechInButton = 5;  //Joystick buttons
+    public static final int kMechOutButton = 6;
+    public static final int kMechCubeIntake = 1;
 
     //this applies to both intake and elevator
     public static final boolean kMechPrimaryInverted = false;

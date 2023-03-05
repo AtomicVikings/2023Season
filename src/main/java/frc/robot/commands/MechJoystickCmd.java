@@ -3,17 +3,21 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Mechanisms.ElevatorArm;
+import frc.robot.subsystems.Mechanisms.ElevatorSubsystem;
 
 public class MechJoystickCmd extends CommandBase {
-    Supplier<Boolean> raiseButton, lowerButton;
-    ElevatorArm elevatorSubsystem;
+    Supplier<Boolean> inButton, outButton, inCube;
+    Supplier<Double> elevatorAxis, angleAxis;
+    ElevatorSubsystem elevatorSubsystem;
 
 
-    public MechJoystickCmd(ElevatorArm elevatorSubsystem, Supplier<Boolean> raiseButton, Supplier<Boolean> lowerButton) {
-        raiseButton = this.raiseButton;
-        lowerButton = this.lowerButton;
-        elevatorSubsystem = this.elevatorSubsystem;
+    public MechJoystickCmd(ElevatorSubsystem elevatorSubsystem, Supplier<Double> elevatorAxis, Supplier<Double> angleAxis, Supplier<Boolean> inButton, Supplier<Boolean> outButton, Supplier<Boolean> inCube) {
+        this.elevatorSubsystem = elevatorSubsystem;
+        this.elevatorAxis = elevatorAxis;
+        this.angleAxis = angleAxis;
+        this.inButton = inButton;
+        this.outButton = outButton;
+        this.inCube = inCube;
         addRequirements(elevatorSubsystem);
     }
 
@@ -24,18 +28,25 @@ public class MechJoystickCmd extends CommandBase {
 
     @Override
     public void execute() {
-        if(raiseButton.get()) {
-            elevatorSubsystem.setMotor(.2);
-        } else if (lowerButton.get()) {
-            elevatorSubsystem.setMotor(-.2);
+        elevatorSubsystem.setExtender(elevatorAxis.get() * .4);
+        elevatorSubsystem.setAngle(angleAxis.get());
+
+        if(inButton.get()) {
+            elevatorSubsystem.setIntake(1);
+        } else if (outButton.get()) {
+            elevatorSubsystem.setIntake(-1);
+        } else if (inCube.get()) {
+            elevatorSubsystem.setIntake(.2);     
         } else {
-            elevatorSubsystem.setMotor(0);
+            elevatorSubsystem.setIntake(0);
         }
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.setMotor(0);
+        elevatorSubsystem.setExtender(0);
+        elevatorSubsystem.setAngle(0);
+        elevatorSubsystem.setIntake(0);
     }
 
     @Override

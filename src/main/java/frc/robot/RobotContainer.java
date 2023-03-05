@@ -11,14 +11,14 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.MechJoystickCmd;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.subsystems.Drivetrain.SwerveSubsystem;
-import frc.robot.subsystems.Mechanisms.ElevatorArm;
+import frc.robot.subsystems.Mechanisms.ElevatorSubsystem;
 import frc.robot.Constants.MechConstants;
 
 
 public class RobotContainer {
 
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-  private final ElevatorArm mechSubsystem = new ElevatorArm();
+  private final ElevatorSubsystem mechSubsystem = new ElevatorSubsystem();
 
   private final Joystick driverJoystick = new Joystick(OIConstants.kDriverControllerPort);
   private final Joystick mechJoystick = new Joystick(OIConstants.kMechControllerPort);
@@ -32,9 +32,13 @@ public class RobotContainer {
       () -> !driverJoystick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)
     ));
 
-    mechSubsystem.setDefaultCommand(new MechJoystickCmd(mechSubsystem,
-     () -> mechJoystick.getRawButton(MechConstants.kMechRaiseIdx),
-     () -> mechJoystick.getRawButton(MechConstants.kMechLowerIdx)));
+    mechSubsystem.setDefaultCommand(new MechJoystickCmd(
+      mechSubsystem,
+     () -> mechJoystick.getRawAxis(MechConstants.kMechExtenderIdx),
+     () -> mechJoystick.getRawAxis(MechConstants.kMechAngleIdx),
+     () -> mechJoystick.getRawButton(MechConstants.kMechInButton),
+     () -> mechJoystick.getRawButton(MechConstants.kMechOutButton),
+     () -> mechJoystick.getRawButton(MechConstants.kMechCubeIntake)));
     
     configureButtonBindings();
   }

@@ -72,7 +72,12 @@ public class SwerveModule {
         // Returns the absolute encoder (Thrifty Bot Absolute Encoder) in radians
         double angle = absoluteEncoder.getVoltage() / RobotController.getVoltage5V();
         angle *= 2.0 * Math.PI;
-        angle -= absoluteEncoderOffsetRad;
+        if (angle - absoluteEncoderOffsetRad < 0) {
+            angle = angle - absoluteEncoderOffsetRad + 2 * Math.PI;
+        } else {
+            angle -= absoluteEncoderOffsetRad;
+        }
+       
         return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
         
     }
