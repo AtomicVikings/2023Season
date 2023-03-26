@@ -26,9 +26,9 @@ public final class Constants {
     public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
     public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
     public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
-    public static final double kPTurning = .3;
+    public static final double kPTurning = .2;
     public static final double kITurning = 0;
-    public static final double kDTurning = 0;
+    public static final double kDTurning = 0.006;
   }
 
   public final static class DriveConstants {
@@ -95,7 +95,7 @@ public final class Constants {
     public static final int kDriverXAxis = 0;
     public static final int kDriverRotAxis = 4;
     public static final int kDriverFieldOrientedButtonIdx = 1;
-    public static final double kDeadband = 0.05;
+    public static final double kDeadband = 0.3;
   }
 
   public static final class MechConstants {
@@ -109,10 +109,11 @@ public final class Constants {
 
     public static final int kMechExtenderIdx = 1; //Joystick axis
     public static final int kMechAngleIdx = 5;
+    public static final int kMechCubeIntake = 2;
 
     public static final int kMechInButton = 5;  //Joystick buttons
     public static final int kMechOutButton = 6;
-    public static final int kMechCubeIntake = 1;
+    
 
     //this applies to both intake and elevator
     public static final boolean kMechPrimaryInverted = false;

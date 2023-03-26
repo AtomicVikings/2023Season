@@ -9,9 +9,11 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.Mechanisms.AutoBalance;
 
 
 public class SwerveSubsystem extends SubsystemBase {
+
     private final SwerveModule frontLeft = new SwerveModule(
         DriveConstants.kFrontLeftDriveMotorPort,
         DriveConstants.kFrontLeftTurningMotorPort,
@@ -48,7 +50,8 @@ public class SwerveSubsystem extends SubsystemBase {
         DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad,
         DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
 
-    private AHRS gyro = new AHRS(SPI.Port.kMXP);
+    public AHRS gyro = new AHRS(SPI.Port.kMXP);
+    AutoBalance autoB = new AutoBalance();
 
     public SwerveSubsystem() {
         new Thread(() -> {
@@ -74,6 +77,7 @@ public class SwerveSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Robot Heading", getHeading());
+        /* 
         SmartDashboard.putNumber("FL Turn", frontLeft.getAbsoluteEncoderRad());
         SmartDashboard.putNumber("FR Turn", frontRight.getAbsoluteEncoderRad());
         SmartDashboard.putNumber("BL Turn", backLeft.getAbsoluteEncoderRad());
@@ -83,6 +87,9 @@ public class SwerveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("FR Turn Inte", frontRight.getTurningPosition());
         SmartDashboard.putNumber("BL Turn Inte", backLeft.getTurningPosition());
         SmartDashboard.putNumber("BR Turn Inte", backRight.getTurningPosition());
+        */
+        
+        SmartDashboard.putNumber("Tilt", autoB.getTilt());
     }
 
     public void stopModules() {
@@ -98,7 +105,12 @@ public class SwerveSubsystem extends SubsystemBase {
         frontRight.setDesiredState(desiredStates[1]);
         backLeft.setDesiredState(desiredStates[2]);
         backRight.setDesiredState(desiredStates[3]);
-
     }
 
+    public void setStraightDrive(SwerveModuleState desiredState) {
+        frontLeft.setDesiredState(desiredState);
+        frontRight.setDesiredState(desiredState);
+        backLeft.setDesiredState(desiredState);
+        backRight.setDesiredState(desiredState);
+    }
 }
